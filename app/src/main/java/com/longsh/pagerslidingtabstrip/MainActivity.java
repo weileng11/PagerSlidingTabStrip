@@ -2,14 +2,14 @@ package com.longsh.pagerslidingtabstrip;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import com.longsh.longshlibrary.PagerSlidingTabStrip;
+
+import java.util.ArrayList;
 
 /**
  * Created by q805699513 on 2017/5/16.
@@ -34,9 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+
+        ArrayList<Fragment> pages = new ArrayList<Fragment>();
+        String[] titls = {"全部", "待付款", "待使用", "待评价"};
+        pages.add(new OneFragment());
+        pages.add(new TwoFragment());
+        pages.add(new ThreeFragment());
+        pages.add(new FourFragment());
+        //页面适配器
+        AbFragmentPagerAdapter fp = new AbFragmentPagerAdapter(this.getSupportFragmentManager(), pages, titls);
+        pager.setAdapter(fp);
+        pager.setOffscreenPageLimit(4);
+//        tabs.setOnPageChangeListener(this);
         tabs.setViewPager(pager);
-//        pager.setOffscreenPageLimit(6);
+
         setTabsValue();
         //设置小红点,item从0开始计算
 //        tabs.setMsgToast(1, true);
@@ -94,60 +105,4 @@ public class MainActivity extends AppCompatActivity {
         tabs.setShouldExpand(true);
     }
 
-    public class MyPagerAdapter extends FragmentPagerAdapter {
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        //     "我的的", "看过我", "新职位", "第四个", "第五个", "嘿嘿", "没有啦"
-        private final String[] titles = {"我的的", "看过我", "新职位", "第四个","测试"};
-
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
-
-
-        @Override
-        public int getCount() {
-            return titles.length;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    if (oneFragment == null) {
-                        oneFragment = new OneFragment();
-                    }
-                    return oneFragment;
-                case 1:
-                    if (twoFragment == null) {
-                        twoFragment = new TwoFragment();
-                    }
-                    return twoFragment;
-
-                case 2:
-                    if (threeFragment == null) {
-                        threeFragment = new ThreeFragment();
-                    }
-                    return threeFragment;
-                case 3:
-                    if (fourFragment == null) {
-                        fourFragment = new FourFragment();
-                    }
-                    return fourFragment;
-                case 4:
-                    if (fiveFragment == null) {
-                        fiveFragment = new FiveFragment();
-                    }
-                    return fourFragment;
-                default:
-
-                    return null;
-            }
-        }
-    }
 }

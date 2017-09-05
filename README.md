@@ -13,10 +13,17 @@
 # Usage
 
 ### Gradle
-
+```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
 ```groovy
 dependencies {
- compile 'com.longsh:PagerSlidingTabStrip:1.0.0' 
+  compile 'com.github.weileng11:PagerSlidingTabStrip:V1.1.2'
 }
 
 ```
