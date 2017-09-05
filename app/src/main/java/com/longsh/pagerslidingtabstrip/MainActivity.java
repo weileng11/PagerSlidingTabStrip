@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //     "我的的", "看过我", "新职位", "第四个", "第五个", "嘿嘿", "没有啦"
-        private final String[] titles = {"我的的", "看过我", "新职位", "第四个"};
+        private final String[] titles = {"我的的", "看过我", "新职位", "第四个","测试"};
 
 
         @Override
@@ -139,7 +139,11 @@ public class MainActivity extends AppCompatActivity {
                         fourFragment = new FourFragment();
                     }
                     return fourFragment;
-
+                case 4:
+                    if (fiveFragment == null) {
+                        fiveFragment = new FiveFragment();
+                    }
+                    return fourFragment;
                 default:
 
                     return null;
